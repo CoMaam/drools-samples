@@ -1,0 +1,11 @@
+package helloworld
+
+import net.comaam.drools.sample.kmodule.*;
+
+rule "Hello DRL World"
+	dialect "mvel"
+	when
+		fact: Fact(place == "DRL")
+	then
+		System.out.printf("Hello! %s World.", fact.place);
+end

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>net.comaam.drools.sample</groupId>
+  <artifactId>KModuleProjectSample</artifactId>
+  <version>1.0.0</version>
+
+  <name>kmodule sample project</name>
+
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <runtime.version>7.0.0.Final</runtime.version>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>jboss-public-repository-group</id>
+      <name>JBoss Public Repository Group</name>
+      <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>daily</updatePolicy>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-api</artifactId>
+      <version>${runtime.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.drools</groupId>
+      <artifactId>drools-core</artifactId>
+      <version>${runtime.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.drools</groupId>
+      <artifactId>drools-decisiontables</artifactId>
+      <version>${runtime.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jbpm</groupId>
+      <artifactId>jbpm-test</artifactId>
+      <version>${runtime.version}</version>
+    </dependency>
+    
+    <!-- Utility for fact model development -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.12</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+  <!-- for kjar build -->
+  <packaging>kjar</packaging>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.kie</groupId>
+        <artifactId>kie-maven-plugin</artifactId>
+        <version>${runtime.version}</version>
+        <extensions>true</extensions>
+      </plugin>
+    </plugins>
+    <pluginManagement>
+      <plugins>
+        <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.kie</groupId>
+                    <artifactId>kie-maven-plugin</artifactId>
+                    <versionRange>[7.0.0.Final,)</versionRange>
+                    <goals>
+                      <goal>build</goal>
+                      <goal>injectreactive</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore></ignore>
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+  <!-- for kjar deploy -->
+  <distributionManagement>
+    <repository>
+      <id>rule-repository</id>
+      <name>rule-repository</name>
+      <url>file://path/to/rule-repository</url>
+    </repository>
+  </distributionManagement>
+</project>
